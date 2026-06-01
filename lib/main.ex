@@ -15,10 +15,6 @@ defmodule CLI do
 
       "cat-file" ->
         [_, _, hash] = System.argv()
-        IO.inspect(hash)
-        IO.inspect(Path.join(".git/objects/", hash))
-        IO.inspect(File.ls(".git/objects"))
-
         <<first::binary-size(2), rest::binary>> = hash
 
         path = ".git/objects/#{first}/#{rest}"
