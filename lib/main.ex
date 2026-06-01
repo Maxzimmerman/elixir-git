@@ -26,7 +26,8 @@ defmodule CLI do
         if File.exists?(path) do
           {:ok, compressed} = File.read(path)
           decompressed = :zlib.uncompress(compressed)
-          IO.inspect(decompressed, label: "TEST")
+          [_header, content] = :binary.split(decompressed, <<0>>)
+          IO.inspect(content, label: "TEST")
         else
           IO.puts("NOT")
         end
