@@ -14,7 +14,13 @@ defmodule CLI do
         IO.puts("Initialized git directory")
 
       "cat-file" ->
-        IO.inspect(System.argv(), label: "TEST")
+        [_, _, hash] = System.argv()
+
+        if File.exists?(Path.join(".git/objects/#{hash}")) do
+          {:ok, content} = File.read(Path.join(".git/objects/#{hash}"))
+          IO.inpsect(content)
+        end
+
         IO.inspect(File.ls(".git/objects/"))
         IO.inspect(File.ls(".git/refs"))
         IO.inspect(File.ls(".git"))
