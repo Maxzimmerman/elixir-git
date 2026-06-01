@@ -16,6 +16,7 @@ defmodule CLI do
         IO.inspect(System.argv(), label: "TEST")
         IO.inspect(File.ls(".git/objects/"))
         IO.inspect(File.ls(".git/refs"))
+        IO.inspect(File.ls(".git"))
 
       _ ->
         raise "Unknown command #{command}"
