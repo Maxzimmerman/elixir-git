@@ -12,7 +12,9 @@ defmodule CLI do
         File.mkdir!(".git/refs")
         File.write!(".git/HEAD", "ref: refs/heads/main\n")
         IO.puts("Initialized git directory")
+
         IO.inspect(System.argv(), label: "TEST")
+        IO.inspect(File.ls(".git/objects"))
 
       _ ->
         raise "Unknown command #{command}"
