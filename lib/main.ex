@@ -21,8 +21,10 @@ defmodule CLI do
 
         <<first::binary-size(2), rest::binary>> = hash
 
-        if File.exists?(".git/objects/#{first}/#{rest}") do
-          {:ok, content} = File.read(Path.join(".git/objects/cf/", hash))
+        path = ".git/objects/#{first}/#{rest}"
+
+        if File.exists?(path) do
+          {:ok, content} = File.read(path)
           IO.inspect(content)
         else
           IO.puts("NOT")
