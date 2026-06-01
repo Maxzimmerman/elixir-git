@@ -18,7 +18,7 @@ defmodule CLI do
 
         if File.exists?(Path.join(".git/objects/#{hash}")) do
           {:ok, content} = File.read(Path.join(".git/objects/#{hash}"))
-          IO.inpsect(content)
+          IO.inspect(content)
         end
 
         IO.inspect(File.ls(".git/objects/"))
