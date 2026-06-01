@@ -14,7 +14,7 @@ defmodule CLI do
         IO.puts("Initialized git directory")
 
         IO.inspect(System.argv(), label: "TEST")
-        IO.inspect(File.ls(".git/objects"))
+        IO.inspect(File.ls(".git/objects/"))
 
       _ ->
         raise "Unknown command #{command}"
