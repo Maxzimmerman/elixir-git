@@ -25,7 +25,7 @@ defmodule CLI do
 
         if File.exists?(path) do
           {:ok, content} = File.read(path)
-          IO.puts(content)
+          IO.puts(first)
         else
           IO.puts("NOT")
         end
