@@ -13,6 +13,7 @@ defmodule CLI do
         File.write!(".git/HEAD", "ref: refs/heads/main\n")
         IO.puts("Initialized git directory")
 
+      "cat-file" ->
         IO.inspect(System.argv(), label: "TEST")
         IO.inspect(File.ls(".git/objects/"))
         IO.inspect(File.ls(".git/refs"))
