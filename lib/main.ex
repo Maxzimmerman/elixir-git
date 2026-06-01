@@ -20,7 +20,7 @@ defmodule CLI do
         IO.inspect(File.ls(".git/objects"))
 
         if File.exists?(Path.join(".git/objects/cf/", hash)) do
-          {:ok, content} = File.read(Path.join(".git/objects/", hash))
+          {:ok, content} = File.read(Path.join(".git/objects/cf/", hash))
           IO.inspect(content)
         else
           IO.puts("NOT")
