@@ -26,7 +26,7 @@ defmodule CLI do
         if File.exists?(path) do
           {:ok, file} = File.open(path, [:read, :utf8])
           content = IO.read(file, :all)
-          IO.puts(content)
+          IO.inspect(content)
           File.close(file)
           {:ok, content} = File.read(path)
           utf8_string = :unicode.characters_to_binary(content, :latin1)
