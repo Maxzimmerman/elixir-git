@@ -15,6 +15,7 @@ defmodule CLI do
 
       "cat-file" ->
         [_, _, hash] = System.argv()
+        IO.inspect(hash)
 
         if File.exists?(Path.join(".git/objects/", hash)) do
           {:ok, content} = File.read(Path.join(".git/objects/", hash))
