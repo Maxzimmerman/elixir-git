@@ -17,6 +17,7 @@ defmodule CLI do
         [_, _, hash] = System.argv()
         IO.inspect(hash)
         IO.inspect(Path.join(".git/objects/", hash))
+        IO.inspect(File.ls(".git/objects"))
 
         if File.exists?(Path.join(".git/objects/", hash)) do
           {:ok, content} = File.read(Path.join(".git/objects/", hash))
