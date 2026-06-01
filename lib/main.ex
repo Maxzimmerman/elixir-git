@@ -32,10 +32,6 @@ defmodule CLI do
           IO.puts("NOT")
         end
 
-        IO.inspect(File.ls(".git/objects/"))
-        IO.inspect(File.ls(".git/refs"))
-        IO.inspect(File.ls(".git"))
-
       _ ->
         raise "Unknown command #{command}"
     end
