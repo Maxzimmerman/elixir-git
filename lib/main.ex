@@ -55,7 +55,8 @@ defmodule CLI do
   end
 
   defp decode_file_name(
-         <<blob::binary-size(4), size::binary-size(2), 0::1, content::binary-size(size)>>
+         <<blob::binary-size(4), size::binary-size(2), 0::1, content::binary-size(size),
+           rest::binary>>
        ) do
     IO.inspect(content)
   end
