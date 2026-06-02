@@ -46,13 +46,16 @@ defmodule CLI do
       "ls-tree" ->
         [_, _, tree_hash] = System.argv()
         <<dir::binary-size(2), file_hash::binary>> = tree_hash
-        {:ok, compressed} = File.read(".git/objects/#{dir}/#{file_hash}")
-        decompressed = :zlib.uncompress(compressed)
-        [_header, content] = :binary.split(decompressed, <<0>>)
-        IO.inspect(content)
+        {:ok, tree_content} = File.read(".git/objects/#{dir}/#{file_hash}")
 
       _ ->
         raise "Unknown command #{command}"
     end
+  end
+
+  defp decode_file_name(
+         <<blob::binary-size(4), size::binary-size(2), 0::1, content::binary-size(size)>>
+       ) do
+    IO.inspect(content)
   end
 end
