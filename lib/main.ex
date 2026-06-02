@@ -47,6 +47,7 @@ defmodule CLI do
         [_, _, tree_hash] = System.argv()
         <<dir::binary-size(2), file_hash::binary>> = tree_hash
         {:ok, tree_content} = File.read(".git/objects/#{dir}/#{file_hash}")
+        decode_file_name(tree_content)
 
       _ ->
         raise "Unknown command #{command}"
