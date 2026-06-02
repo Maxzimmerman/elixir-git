@@ -28,6 +28,9 @@ defmodule CLI do
           IO.puts("NOT")
         end
 
+      "hash-object" ->
+        IO.inspect(System.argv())
+
       _ ->
         raise "Unknown command #{command}"
     end
