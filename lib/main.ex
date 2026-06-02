@@ -49,7 +49,7 @@ defmodule CLI do
         {:ok, compressed} = File.read(".git/objects/#{dir}/#{file_hash}")
         decompressed = :zlib.uncompress(compressed)
         [_header, content] = :binary.split(decompressed, <<0>>)
-        IO.puts(content)
+        IO.inspect(content)
 
       _ ->
         raise "Unknown command #{command}"
