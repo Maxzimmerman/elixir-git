@@ -43,6 +43,9 @@ defmodule CLI do
 
         IO.puts(sha)
 
+      "ls-tree" ->
+        IO.puts("TEST")
+
       _ ->
         raise "Unknown command #{command}"
     end
