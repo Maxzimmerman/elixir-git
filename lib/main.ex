@@ -46,7 +46,7 @@ defmodule CLI do
       "ls-tree" ->
         [_, _, tree_hash] = System.argv()
         <<dir::binary-size(2), file_hash::binary>> = tree_hash
-        IO.inspect(File.ls(".git/objects/#{dir}"))
+        IO.inspect(File.read(".git/objects/#{dir}/#{file_hash}"))
         IO.puts(tree_hash)
 
       _ ->
