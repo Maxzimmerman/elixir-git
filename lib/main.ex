@@ -48,7 +48,8 @@ defmodule CLI do
         <<dir::binary-size(2), file_hash::binary>> = tree_hash
         {:ok, compressed} = File.read(".git/objects/#{dir}/#{file_hash}")
         decompressed = :zlib.uncompress(compressed)
-        IO.inspect(decompressed)
+        [_header, content] = :binary.split(decompressed, <<0>>)
+        IO.inspect(content)
 
       _ ->
         raise "Unknown command #{command}"
