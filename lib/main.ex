@@ -41,6 +41,8 @@ defmodule CLI do
         File.mkdir!(".git/objects/#{dir}")
         File.write(".git/objects/#{dir}/#{rest}", compressed)
 
+        IO.puts(sha)
+
       _ ->
         raise "Unknown command #{command}"
     end
