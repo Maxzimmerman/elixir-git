@@ -45,6 +45,7 @@ defmodule CLI do
 
       "ls-tree" ->
         [_, _, tree_hash] = System.argv()
+        IO.inspect(File.ls(".git/objects/"))
         IO.puts(tree_hash)
 
       _ ->
