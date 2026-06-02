@@ -40,7 +40,7 @@ defmodule CLI do
         <<dir::binary-size(2), rest::binary>> = sha
 
         File.mkdir!(".git/objects/#{dir}")
-        File.write(".git/objects/#{dir}/#{rest}")
+        File.write(".git/objects/#{dir}/#{rest}", compressed)
 
       _ ->
         raise "Unknown command #{command}"
