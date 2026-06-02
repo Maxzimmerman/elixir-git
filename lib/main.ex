@@ -31,7 +31,6 @@ defmodule CLI do
       "hash-object" ->
         [_, _, path] = System.argv()
         content = File.read!(path)
-        IO.inspect(content)
         header = "blob #{byte_size(content)}\0"
         store = header <> content
         compressed = :zlib.compress(store)
