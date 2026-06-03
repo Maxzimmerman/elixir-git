@@ -22,6 +22,6 @@ defmodule CLI do
 
     command_name = List.first(args)
 
-    command(command_name).execute
+    command(command_name).execute()
   end
 end
