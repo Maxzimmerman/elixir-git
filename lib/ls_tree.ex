@@ -15,5 +15,6 @@ defmodule Commands.LsTree do
     [name, <<hash::binary-size(20), rest::binary>>] = :binary.split(rest, <<0>>)
     IO.inspect(mode)
     IO.inspect(name)
+    IO.inspect(hash)
   end
 end
