@@ -8,7 +8,7 @@ defmodule Commands.LsTree do
     decompressed = :zlib.uncompress(compressed_tree_content)
     [_head, content] = :binary.split(decompressed, <<0>>)
     names = decode_file_name(content, [])
-    IO.write(Enum.join(names, "\n") <> "\n")
+    IO.puts(Enum.join(names, "\n") <> "\n")
   end
 
   defp decode_file_name(content, names) when bit_size(content) > 0 do
