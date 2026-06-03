@@ -3,14 +3,18 @@ defmodule Commands.WriteTree do
 
   def execute do
     {:ok, files} = File.ls(".")
-    IO.inspect(files)
     dirs = Enum.filter(files, &(File.dir?(&1) and &1 != ".git"))
     files = Enum.reject(files, &File.dir?(&1))
-    IO.inspect(dirs)
-    IO.inspect(files)
-    files_hashes = build_blobs(files, [])
-    IO.inspect(files_hashes)
+    file_hashes = build_blobs(files, [])
+    dir_hashes = build_trees(dirs, [])
   end
+
+  def build_trees([dir | rest], hashes) do
+    IO.inspect(File.ls("./#{dir}"))
+    build_trees(rest, ["1" | hashes])
+  end
+
+  def build_trees(_, hashes), do: hashes
 
   def build_blobs([file | rest], hashes) do
     sha =
