@@ -9,6 +9,7 @@ defmodule Commands.LsTree do
     [_head, content] = :binary.split(decompressed, <<0>>)
     names = decode_file_name(content, [])
     IO.inspect(Enum.join(names, "\nj"))
+    IO.inspect(names)
   end
 
   defp decode_file_name(content, names) when bit_size(content) > 0 do
