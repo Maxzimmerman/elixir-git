@@ -34,7 +34,8 @@ defmodule Git do
 
     # body
     {:ok, files} = File.ls(dir)
-    blobs = build_blobs(files, [])
+    files_for_dir = Enum.reject(files, &File.dir?(&1))
+    blobs = build_blobs(files_for_dir, [])
     IO.inspect(blobs)
   end
 
