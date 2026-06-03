@@ -11,7 +11,7 @@ defmodule Commands.WriteTree do
 
   def build_trees([dir | rest], hashes) do
     IO.inspect(File.ls("./#{dir}"))
-    build_trees(rest, ["1" | hashes])
+    build_trees(rest, ["1" | hashes], label: "For:")
   end
 
   def build_trees(_, hashes), do: hashes
