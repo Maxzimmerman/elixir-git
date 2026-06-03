@@ -4,5 +4,6 @@ defmodule Commands.WriteTree do
   def execute do
     {:ok, files} = File.ls(".")
     IO.inspect(Enum.reject(files, &File.dir?(&1)))
+    IO.inspect(files)
   end
 end
