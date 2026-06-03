@@ -46,7 +46,7 @@ defmodule Git do
     {sha, mode} =
       case File.read("./#{file}") do
         {:ok, file_bites} ->
-          {:ok, stat} = File.stat!(file)
+          {:ok, stat} = File.stat(file)
           {create_blob_with_file_content(file_bites), stat.mode}
       end
 
