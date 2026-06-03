@@ -8,5 +8,11 @@ defmodule Commands.WriteTree do
     files = Enum.reject(files, &File.dir?(&1))
     IO.inspect(dirs)
     IO.inspect(files)
+    files_hashes = build_blobs(files, [])
   end
+
+  def build_blobs(files, hashes) do
+  end
+
+  def build_blobs(_, hashes), do: hashes
 end
