@@ -29,6 +29,7 @@ defmodule Git do
   end
 
   def create_tree_with_file(file) do
+    IO.puts(file)
     {:ok, content} = File.read(file)
     {:ok, stat} = File.stat!(file)
 
@@ -46,7 +47,7 @@ defmodule Git do
     {sha, mode} =
       case File.read("./#{file}") do
         {:ok, file_bites} ->
-          {:ok, stat} = File.stat("./#{file}")
+          {:ok, stat} = File.stat(file)
           {create_blob_with_file_content(file_bites), stat.mode}
       end
 
