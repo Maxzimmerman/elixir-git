@@ -28,15 +28,14 @@ defmodule Git do
     sha
   end
 
-  def create_tree_with_file(file) do
-    IO.puts(file)
-    {:ok, stat} = File.stat!(file)
+  def create_tree_with_file(dir) do
+    {:ok, stat} = File.stat!(dir)
 
     # header 
-    header = "tree #{bit_size(file)}\0"
+    header = "tree #{bit_size(dir)}\0"
 
     # body
-    {:ok, files} = File.ls(file)
+    {:ok, files} = File.ls(dir)
     blobs = build_blobs(files, [])
     IO.inspect(blobs)
   end
