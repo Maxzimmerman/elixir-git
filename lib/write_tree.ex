@@ -6,7 +6,7 @@ defmodule Commands.WriteTree do
     IO.inspect(files)
     dirs = Enum.filter(files, &(File.dir?(&1) and &1 != ".git"))
     files = Enum.reject(files, &File.dir?(&1))
-    IO.inspect(files)
+    IO.inspect(dirs)
     IO.inspect(files)
   end
 end
