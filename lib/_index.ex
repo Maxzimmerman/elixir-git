@@ -30,7 +30,7 @@ defmodule Git do
 
   def create_tree_with_file(file) do
     IO.puts(file)
-    {:ok, content} = File.read(file)
+    {:ok, content} = File.read("./#{file}")
     {:ok, stat} = File.stat!(file)
 
     # header 
