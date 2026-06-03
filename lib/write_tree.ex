@@ -11,7 +11,14 @@ defmodule Commands.WriteTree do
     files_hashes = build_blobs(files, [])
   end
 
-  def build_blobs(files, hashes) do
+  def build_blobs([file | rest], hashes) do
+    sha =
+      case File.read("./#{file}") do
+        {:ok, file_bites} ->
+          Git.create_blob_with_file_content(file_bites)
+      end
+
+    build_blobs(rest, [sha | hashes])
   end
 
   def build_blobs(_, hashes), do: hashes
