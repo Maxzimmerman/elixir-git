@@ -3,7 +3,8 @@ defmodule CLI do
     "init" => Commands.Init,
     "cat-file" => Commands.CatFile,
     "hash-object" => Commands.HashObject,
-    "ls-tree" => Commands.LsTree
+    "ls-tree" => Commands.LsTree,
+    "write-tree" => Commands.WriteTree
   }
 
   defp command(name) do
