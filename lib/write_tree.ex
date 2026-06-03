@@ -9,6 +9,7 @@ defmodule Commands.WriteTree do
     IO.inspect(dirs)
     IO.inspect(files)
     files_hashes = build_blobs(files, [])
+    IO.inspect(files_hashes)
   end
 
   def build_blobs([file | rest], hashes) do
