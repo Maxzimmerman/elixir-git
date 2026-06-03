@@ -8,7 +8,7 @@ defmodule Commands.WriteTree do
     files = Enum.reject(files, &File.dir?(&1))
     IO.inspect(dirs, label: "Dirs")
     IO.inspect(files, label: "Files")
-    file_hashes = build_blobs(files, [])
+    file_hashes = Git.build_blobs(files, [])
     dir_hashes = build_trees(dirs, [])
   end
 
@@ -18,16 +18,4 @@ defmodule Commands.WriteTree do
   end
 
   def build_trees(_, hashes), do: hashes
-
-  def build_blobs([file | rest], hashes) do
-    sha =
-      case File.read("./#{file}") do
-        {:ok, file_bites} ->
-          Git.create_blob_with_file_content(file_bites)
-      end
-
-    build_blobs(rest, [sha | hashes])
-  end
-
-  def build_blobs(_, hashes), do: hashes
 end
