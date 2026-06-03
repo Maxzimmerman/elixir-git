@@ -10,7 +10,7 @@ defmodule Commands.LsTree do
     decode_file_name(content)
   end
 
-  defp decode_file_name(<<mode::binary-size(4), name::binary-size(12), rest::binary>>) do
+  defp decode_file_name(<<mode::binary-size(4), name::binary-size(32), rest::binary>>) do
     IO.inspect(name)
     IO.inspect(mode)
   end
