@@ -13,5 +13,6 @@ defmodule Commands.LsTree do
   defp decode_file_name(content) do
     [mode, rest] = :binary.split(content, " ")
     IO.inspect(mode)
+    IO.inspect(rest)
   end
 end
