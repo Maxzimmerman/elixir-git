@@ -8,7 +8,7 @@ defmodule Commands.LsTree do
     decode_file_name(tree_content)
   end
 
-  defp decode_file_name(<<blob::binary-size(4), size::binary-size(2), rest::binary>>) do
-    IO.inspect(blob)
+  defp decode_file_name(<<tree::binary-size(4), size::binary-size(2), rest::binary>>) do
+    IO.inspect(Base.encode64(tree))
   end
 end
