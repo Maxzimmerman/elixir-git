@@ -10,8 +10,8 @@ defmodule Commands.WriteTree do
   end
 
   def build_trees([dir | rest], hashes) do
-    IO.inspect(File.ls("./#{dir}"))
-    build_trees(rest, ["1" | hashes], label: "For:")
+    IO.inspect(File.ls("./#{dir}"), label: "for: #{dir}")
+    build_trees(rest, ["1" | hashes])
   end
 
   def build_trees(_, hashes), do: hashes
