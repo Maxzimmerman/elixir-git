@@ -30,12 +30,10 @@ defmodule Git do
 
   def create_tree_with_file(file) do
     IO.puts(file)
-    {:ok, content} = File.read("./#{file}")
     {:ok, stat} = File.stat!(file)
 
     # header 
-    size = bit_size(content)
-    header = "tree #{size}\0"
+    header = "tree #{bit_size(file)}\0"
 
     # body
     {:ok, files} = File.ls(file)
