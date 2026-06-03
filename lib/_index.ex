@@ -29,8 +29,6 @@ defmodule Git do
   end
 
   def create_tree_with_file(dir) do
-    {:ok, stat} = File.stat!(dir)
-
     # header 
     header = "tree #{bit_size(dir)}\0"
 
