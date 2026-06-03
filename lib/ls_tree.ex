@@ -7,7 +7,7 @@ defmodule Commands.LsTree do
     {:ok, compressed_tree_content} = File.read(".git/objects/#{dir}/#{file_hash}")
     decompressed = :zlib.uncompress(compressed_tree_content)
     [_head, content] = :binary.split(decompressed, <<0>>)
-    decode_file_name(:zlib.uncompress(compressed_tree_content))
+    decode_file_name(content)
   end
 
   defp decode_file_name(<<tree::binary-size(4), size::binary-size(2), rest::binary>>) do
