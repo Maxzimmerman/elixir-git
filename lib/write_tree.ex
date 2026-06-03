@@ -14,6 +14,7 @@ defmodule Commands.WriteTree do
 
   def build_trees([dir | rest], hashes) do
     IO.inspect(File.ls("#{dir}"), label: "for: #{dir}")
+    Git.create_tree_with_file(dir)
     build_trees(rest, ["1" | hashes])
   end
 
