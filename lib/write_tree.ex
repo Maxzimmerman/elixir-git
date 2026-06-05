@@ -35,7 +35,7 @@ defmodule Commands.WriteTree do
           Enum.reject(files, &File.dir?(&1))
           |> Enum.map(&"#{dir_name}/#{&1}")
 
-        build_graph(rest ++ dirs, Map.put(graph_acc, dir_name, files ++ dirs))
+        build_graph(rest ++ dirs ++ dirs, Map.put(graph_acc, dir_name, files ++ dirs))
 
       {:error, :enotdir} ->
         build_graph(rest, graph_acc)
