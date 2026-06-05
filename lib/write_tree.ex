@@ -59,6 +59,7 @@ defmodule Commands.WriteTree do
 
       if neighbors == [] do
         IO.puts("BUILD BLOB")
+        file_sha = Git.create_blob_with_file(node)
       else
         IO.puts("BUILD TREE")
       end
