@@ -37,7 +37,7 @@ defmodule Commands.WriteTree do
           Enum.reject(files, &File.dir?(&1))
           |> Enum.map(&"#{dir_name}/#{&1}")
 
-        IO.puts("#{dir_name} - files: #{files} - dirs: #{dirs}")
+        IO.puts("#{dir_name} - files: #{inspect(files)} - dirs: #{inspect(dirs)}")
 
         build_graph(rest ++ dirs ++ files, Map.put(graph_acc, dir_name, files ++ dirs))
 
