@@ -40,7 +40,7 @@ defmodule Git do
       |> Enum.map(fn file -> "#{dir}/#{file}" end)
 
     blobs = build_blobs(files_for_dir, [])
-    IO.inspect(blobs)
+    IO.inspect(blobs, label: "Blobs")
   end
 
   def build_blobs([file | rest], hashes) do
