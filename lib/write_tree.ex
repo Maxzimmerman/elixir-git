@@ -56,6 +56,11 @@ defmodule Commands.WriteTree do
       dfs(graph, stack, visited, acc)
     else
       neighbors = Map.get(graph, node, [])
+
+      if neighbors == [] do
+        IO.puts("BUILD BLOB")
+      end
+
       IO.puts("DFS RUN #{node} neibhors: #{inspect(neighbors)}")
       dfs(graph, neighbors ++ stack, MapSet.put(visited, node), [node | acc])
     end
