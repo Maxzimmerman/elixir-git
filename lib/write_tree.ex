@@ -27,7 +27,7 @@ defmodule Commands.WriteTree do
   def build_graph([dir_name | rest], graph_acc) do
     case File.ls(dir_name) do
       {:ok, files} ->
-        IO.inspect("#{dir_name} - #{files}")
+        IO.inspect("#{dir_name} - #{inspect(files)}")
 
         dirs =
           Enum.filter(files, &(File.dir?(&1) and &1 != ".git"))
