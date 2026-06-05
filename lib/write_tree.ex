@@ -25,11 +25,18 @@ defmodule Commands.WriteTree do
   def build_graph([], graph_acc), do: graph_acc
 
   def build_graph([dir_name | rest], graph_acc) do
-    {:ok, files} = File.ls(dir_name)
-    dirs = Enum.filter(files, &(File.dir?(&1) and &1 != ".git")) |> Enum.map(&"#{dir_name}/#{&1}")
-    files = Enum.reject(files, &File.dir?(&1)) |> Enum.map(&"#{dir_name}/#{&1}")
+    case File.ls(dir_name) do
+      {:ok, files} ->
+        dirs =
+          Enum.filter(files, &(File.dir?(&1) and &1 != ".git")) |> Enum.map(&"#{dir_name}/#{&1}")
 
-    build_graph(rest ++ dirs, Map.put(graph_acc, dir_name, files ++ dirs))
+        files = Enum.reject(files, &File.dir?(&1)) |> Enum.map(&"#{dir_name}/#{&1}")
+
+        build_graph(rest ++ dirs, Map.put(graph_acc, dir_name, files ++ dirs))
+
+      {:error, :enotdir} ->
+        build_graph(rest, graph_acc)
+    end
   end
 
   def dfs(graph, start) do
