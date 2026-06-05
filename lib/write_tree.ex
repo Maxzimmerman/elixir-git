@@ -61,6 +61,7 @@ defmodule Commands.WriteTree do
         file_sha = Git.create_blob_with_file(node)
         IO.puts("BUILD BLOB #{file_sha}")
       else
+        Git.create_tree_with_file(node)
         IO.puts("BUILD TREE")
       end
 
