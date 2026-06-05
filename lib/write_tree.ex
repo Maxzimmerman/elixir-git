@@ -59,6 +59,8 @@ defmodule Commands.WriteTree do
 
       if neighbors == [] do
         IO.puts("BUILD BLOB")
+      else
+        IO.puts("BUILD TREE")
       end
 
       IO.puts("DFS RUN #{node} neibhors: #{inspect(neighbors)}")
