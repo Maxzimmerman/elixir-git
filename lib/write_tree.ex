@@ -29,7 +29,7 @@ defmodule Commands.WriteTree do
     dirs = Enum.filter(files, &(File.dir?(&1) and &1 != ".git")) |> Enum.map(&"#{dir_name}/#{&1}")
     files = Enum.reject(files, &File.dir?(&1)) |> Enum.map(&"#{dir_name}/#{&1}")
 
-    build_graph(rest ++ dirs, Map.put(graph_acc, dir_name, files))
+    build_graph(rest ++ dirs, Map.put(graph_acc, dir_name, files ++ dirs))
   end
 
   def dfs(graph, start) do
