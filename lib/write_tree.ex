@@ -58,8 +58,8 @@ defmodule Commands.WriteTree do
       neighbors = Map.get(graph, node, [])
 
       if neighbors == [] do
-        IO.puts("BUILD BLOB")
         file_sha = Git.create_blob_with_file(node)
+        IO.puts("BUILD BLOB #{file_sha}")
       else
         IO.puts("BUILD TREE")
       end
