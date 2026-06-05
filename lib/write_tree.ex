@@ -26,8 +26,8 @@ defmodule Commands.WriteTree do
 
   def build_graph([dir_name | rest], graph_acc) do
     {:ok, files} = File.ls(dir_name)
-    dirs = Enum.filter(files, &(File.dir?(&1) and &1 != ".git"))
-    files = Enum.reject(files, &File.dir?(&1))
+    dirs = Enum.filter(files, &(File.dir?(&1) and &1 != ".git")) |> Enum.map(&"#{dir_name}/#{&1}")
+    files = Enum.reject(files, &File.dir?(&1)) |> Enum.map(&"#{dir_name}/#{&1}")
 
     build_graph(rest ++ dirs, Map.put(graph_acc, dir_name, files))
   end
