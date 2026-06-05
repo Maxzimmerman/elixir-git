@@ -2,15 +2,16 @@ defmodule Commands.WriteTree do
   @behaviour Command
 
   def execute do
-    {:ok, files} = File.ls(".")
-    IO.inspect(files, label: "ALL")
-    dirs = Enum.filter(files, &(File.dir?(&1) and &1 != ".git"))
-    files = Enum.reject(files, &File.dir?(&1))
-    IO.inspect(dirs, label: "Dirs")
-    IO.inspect(files, label: "Files")
-    file_hashes = Git.build_blobs(files, [])
-    dir_hashes = build_trees(dirs, [])
-    IO.inspect(dir_hashes, label: "Dir hashes")
+    # {:ok, files} = File.ls(".")
+    # IO.inspect(files, label: "ALL")
+    # dirs = Enum.filter(files, &(File.dir?(&1) and &1 != ".git"))
+    # files = Enum.reject(files, &File.dir?(&1))
+    # IO.inspect(dirs, label: "Dirs")
+    # IO.inspect(files, label: "Files")
+    # file_hashes = Git.build_blobs(files, [])
+    # dir_hashes = build_trees(dirs, [])
+    # IO.inspect(dir_hashes, label: "Dir hashes")
+    IO.inspect(build_graph(["."], %{}))
   end
 
   def build_trees([dir | rest], hashes) do
@@ -20,4 +21,30 @@ defmodule Commands.WriteTree do
   end
 
   def build_trees(_, hashes), do: hashes
+
+  def build_graph([], graph_acc), do: graph_acc
+
+  def build_graph([dir_name | rest], graph_acc) do
+    {:ok, files} = File.ls(dir_name)
+    dirs = Enum.filter(files, &(File.dir?(&1) and &1 != ".git"))
+    files = Enum.reject(files, &File.dir?(&1))
+
+    build_graph(rest ++ dirs, Map.put(graph_acc, dir_name, files))
+  end
+
+  def dfs(graph, start) do
+    dfs(graph, [start], MapSet.new(), [])
+    |> Enum.reverse()
+  end
+
+  defp dfs(_graph, [], _visited, acc), do: acc
+
+  defp dfs(graph, [node | stack], visited, acc) do
+    if MapSet.member?(visited, node) do
+      dfs(graph, stack, visited, acc)
+    else
+      neighbors = Map.get(graph, node, [])
+      dfs(graph, neighbors ++ stack, MapSet.put(visited, node), [node | acc])
+    end
+  end
 end
