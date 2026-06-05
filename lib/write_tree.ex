@@ -10,6 +10,7 @@ defmodule Commands.WriteTree do
     IO.inspect(files, label: "Files")
     file_hashes = Git.build_blobs(files, [])
     dir_hashes = build_trees(dirs, [])
+    IO.inspect(dir_hashes, label: "Dir hashes")
   end
 
   def build_trees([dir | rest], hashes) do
