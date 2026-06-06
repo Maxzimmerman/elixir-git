@@ -2,6 +2,7 @@ defmodule Commands.CommitTree do
   @behaviour Command
 
   def execute() do
+    IO.inspect(System.argv())
     create_commit(System.argv())
   end
 
