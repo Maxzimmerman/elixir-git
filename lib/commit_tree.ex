@@ -25,7 +25,7 @@ defmodule Commands.CommitTree do
     compressed_commit = :zlib.compress(commit_str)
     sha = :crypto.hash(:sha, commit_str) |> Base.encode16(case: :lower)
 
-    <<dir::2, rest::binary>> = sha
+    <<dir::binary-size(2), rest::binary>> = sha
     File.mkdir_p(".git/objects/#{dir}")
     File.write(".git/objects/#{dir}/#{rest}", compressed_commit)
     IO.write(sha)
