@@ -18,9 +18,10 @@ defmodule Commands.CommitTree do
     IO.puts(tree_hash)
     IO.puts(is_binary(parent_tree_hash))
     IO.puts(message)
+    {:ok, parent_hash_hexa} = Base.decode16(parent_tree_hash)
 
     header = "commit #{byte_size(extract_content_of_tree_file(tree_hash))}\n"
-    parent = "parent #{Base.decode16(parent_tree_hash)}"
+    parent = "parent #{parent_hash_hexa}"
     IO.inspect(header)
     IO.inspect(parent)
   end
