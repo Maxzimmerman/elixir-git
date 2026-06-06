@@ -21,7 +21,7 @@ defmodule Commands.CommitTree do
     empty_line = "\n"
 
     store = parent <> author <> committer <> empty_line <> message
-    header = "commit #{byte_size(store)}\ntree #{tree_hash}"
+    header = "commit #{byte_size(store)}\0tree #{tree_hash}"
 
     commit = store <> header
     sha = :crypto.hash(:sha, commit)
