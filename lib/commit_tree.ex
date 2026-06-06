@@ -21,9 +21,11 @@ defmodule Commands.CommitTree do
     {:ok, parent_hash_hexa} = Base.decode16(parent_tree_hash, case: :mixed)
 
     header = "commit #{byte_size(extract_content_of_tree_file(tree_hash))}\n"
-    parent = "parent #{parent_hash_hexa}"
+    parent = "parent #{parent_hash_hexa}\n"
+    author = "Max Benner <test@test.com> 1234567890 +0000\n"
     IO.inspect(header)
     IO.inspect(parent)
+    IO.inspect(author)
   end
 
   def create_commit([
