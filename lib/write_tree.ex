@@ -1,6 +1,9 @@
 defmodule Commands.WriteTree do
   @behaviour Command
 
+  @git_file_mode "100644"
+  @git_dir_mode "40000"
+
   def execute do
     # {:ok, files} = File.ls(".")
     # IO.inspect(files, label: "ALL")
@@ -23,11 +26,10 @@ defmodule Commands.WriteTree do
       |> Enum.reject(&(&1 == ".git"))
       |> Enum.map(fn name ->
         path = Path.join(dir, name)
-        {:ok, stat} = File.stat(dir)
 
         cond do
-          File.dir?(path) -> {stat.mode, name, write_tree(path)}
-          true -> {stat.mode, name, Git.create_blob_with_file(path)}
+          File.dir?(path) -> {@git_dir_mode, name, write_tree(path)}
+          true -> {@git_file_mode, name, Git.create_blob_with_file(path)}
         end
       end)
       |> Enum.sort_by(fn {_, name, _} -> name end)
