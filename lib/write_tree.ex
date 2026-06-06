@@ -16,6 +16,22 @@ defmodule Commands.WriteTree do
     dfs(graph, ".")
   end
 
+  def write_tree(dir) do
+    entries =
+      File.ls!(dir)
+      |> Enum.reject(&(&1 == ".git"))
+      |> Enum.map(fn name ->
+        path = Path.join(dir, name)
+        {:ok, mode} = File.stat(dir)
+
+        cond do
+          File.dir?(path) -> {mode, name, write_tree(path)}
+          true -> {mode, name, Git.create_blob_with_file(path)}
+        end
+      end)
+      |> Enum.sort_by(fn {_, name, _} -> name end)
+  end
+
   def build_trees([dir | rest], hashes) do
     IO.inspect(File.ls("#{dir}"), label: "for: #{dir}")
     Git.create_tree_with_file(dir)
