@@ -37,7 +37,7 @@ defmodule Commands.WriteTree do
     entry_bytes =
       entries
       |> Enum.map(fn {mode, name, hex_sha} ->
-        <<mode, " ", name, hex_sha>>
+        <<mode::binary, " "::binary, name::binary, hex_sha::binary>>
         # build "<mode> <name>\0<20_raw_bytes>"
       end)
       |> IO.iodata_to_binary()
