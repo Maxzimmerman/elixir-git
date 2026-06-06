@@ -11,9 +11,10 @@ defmodule Commands.WriteTree do
     # file_hashes = Git.build_blobs(files, [])
     # dir_hashes = build_trees(dirs, [])
     # IO.inspect(dir_hashes, label: "Dir hashes")
-    graph = build_graph(["."], %{})
-    IO.inspect(graph)
-    dfs(graph, ".")
+    #   graph = build_graph(["."], %{})
+    #   IO.inspect(graph)
+    #   dfs(graph, ".")
+    write_tree(".")
   end
 
   def write_tree(dir) do
@@ -30,6 +31,8 @@ defmodule Commands.WriteTree do
         end
       end)
       |> Enum.sort_by(fn {_, name, _} -> name end)
+
+    IO.inspect(entries)
   end
 
   def build_trees([dir | rest], hashes) do
