@@ -16,7 +16,7 @@ defmodule Commands.CommitTree do
       ]) do
     IO.puts("wiht parent")
     IO.puts(tree_hash)
-    IO.puts(is_binary(parent_tree_hash))
+    IO.puts(parent_tree_hash)
     IO.puts(message)
     {:ok, parent_hash_hexa} = Base.decode16(parent_tree_hash)
 
