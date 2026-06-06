@@ -183,6 +183,7 @@ defmodule Commands.Clone do
   defp parse_objects(_rest, 0, acc), do: Enum.reverse(acc)
 
   defp parse_objects(data, n, acc) do
+    IO.puts(:stderr, "parse_objects n=#{n} remaining_bytes=#{byte_size(data)} first4=#{inspect(binary_part(data, 0, min(4, byte_size(data))))}")
     {obj, rest} = parse_one_object(data)
     parse_objects(rest, n - 1, [obj | acc])
   end
@@ -190,6 +191,7 @@ defmodule Commands.Clone do
   defp parse_one_object(<<first, rest::binary>>) do
     type = band(bsr(first, 4), 0b111)
     size_lo = band(first, 0b1111)
+    IO.puts(:stderr, "  obj first_byte=#{Integer.to_string(first, 16)} type=#{type} size_lo=#{size_lo}")
 
     {_size, rest2} =
       if band(first, 0x80) == 0 do
