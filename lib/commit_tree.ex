@@ -24,7 +24,7 @@ defmodule Commands.CommitTree do
     header = "commit #{byte_size(store)}\ntree #{tree_hash}"
     commit = store <> header
     compressed_commit = :zlib.compress(commit)
-    sha = :crypto.hash(:sha, commit) |> Base.encode16(case: :lower)
+    sha = :crypto.hash(:sha, commit)
 
     <<dir::binary-size(2), rest::binary>> = sha
     File.mkdir_p(".git/objects/#{dir}")
