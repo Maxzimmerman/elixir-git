@@ -23,9 +23,11 @@ defmodule Commands.CommitTree do
     header = "commit #{byte_size(extract_content_of_tree_file(tree_hash))}\n"
     parent = "parent #{parent_hash_hexa}\n"
     author = "Max Benner <test@test.com> 1234567890 +0000\n"
+    committer = "Max Benner <test@test.com> 1234567890 +0000\n"
     IO.inspect(header)
     IO.inspect(parent)
     IO.inspect(author)
+    IO.inspect(committer)
   end
 
   def create_commit([
