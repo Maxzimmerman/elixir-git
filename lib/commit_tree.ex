@@ -24,6 +24,10 @@ defmodule Commands.CommitTree do
     commit_str = header <> parent <> author <> committer <> empty_line <> message
     compressed_commit = :zlib.compress(commit_str)
     sha = :crypto.hash(:sha, commit_str) |> Base.encode16(case: :lower)
+
+    <<dir::2, rest::binary>> = sha
+    File.mkdir_p(".git/objects/#{dir}")
+    File.write(".git/objects/#{dir}/#{rest}", compressed_commit)
     IO.write(sha)
   end
 
