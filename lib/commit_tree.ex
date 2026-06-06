@@ -29,7 +29,7 @@ defmodule Commands.CommitTree do
     <<dir::binary-size(2), rest::binary>> = sha
     File.mkdir_p(".git/objects/#{dir}")
     File.write(".git/objects/#{dir}/#{rest}", commit)
-    IO.inspect(sha)
+    IO.puts(sha)
   end
 
   def create_commit([
