@@ -13,7 +13,7 @@ defmodule Commands.CommitTree do
         "-m",
         message
       ]) do
-    tree = "tree #{tree_hash}"
+    tree = "tree #{tree_hash}\n"
     parent = "parent #{parent_tree_hash}\n"
     author = "author Max Benner <test@test.com> 1234567890 +0000\n"
     committer = "committer Max Benner <test@test.com> 1234567890 +0000\n"
