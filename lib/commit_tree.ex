@@ -13,13 +13,14 @@ defmodule Commands.CommitTree do
         "-m",
         message
       ]) do
+    tree = "tree #{tree_hash}"
     parent = "parent #{parent_tree_hash}\n"
     author = "Max Benner <test@test.com> 1234567890 +0000\n"
     committer = "Max Benner <test@test.com> 1234567890 +0000\n"
     empty_line = "\n"
 
-    store = parent <> author <> committer <> empty_line <> message
-    header = "commit #{byte_size(store)}\0tree #{tree_hash}"
+    store = tree <> parent <> author <> committer <> empty_line <> message
+    header = "commit #{byte_size(store)}\0"
 
     commit = store <> header
     sha = :crypto.hash(:sha, commit)
