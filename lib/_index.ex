@@ -27,32 +27,4 @@ defmodule Git do
 
     sha
   end
-
-  def create_tree_with_file(dir) do
-    # header 
-    header = "tree #{bit_size(dir)}\0"
-
-    # body
-    {:ok, files} = File.ls(dir)
-
-    files_for_dir =
-      Enum.reject(files, &File.dir?(&1))
-      |> Enum.map(fn file -> "#{dir}/#{file}" end)
-
-    blobs = build_blobs(files_for_dir, [])
-    IO.inspect(blobs, label: "Blobs")
-  end
-
-  def build_blobs([file | rest], hashes) do
-    {sha, mode} =
-      case File.read(file) do
-        {:ok, file_bites} ->
-          {:ok, stat} = File.stat(file)
-          {create_blob_with_file_content(file_bites), stat.mode}
-      end
-
-    build_blobs(rest, [[file, sha, mode] | hashes])
-  end
-
-  def build_blobs(_, hashes), do: hashes
 end
