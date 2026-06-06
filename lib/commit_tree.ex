@@ -18,6 +18,7 @@ defmodule Commands.CommitTree do
     author = "author Max Benner <test@test.com> 1234567890 +0000\n"
     committer = "committer Max Benner <test@test.com> 1234567890 +0000\n"
     empty_line = "\n"
+    message = "#{message}\n"
 
     store = tree <> parent <> author <> committer <> empty_line <> message
     header = "commit #{byte_size(store)}\0"
