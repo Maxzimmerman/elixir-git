@@ -18,6 +18,8 @@ defmodule Commands.CommitTree do
     IO.puts(tree_hash)
     IO.puts(parent_tree_hash)
     IO.puts(message)
+
+    header = "commit #{byte_size(extract_content_of_tree_file(tree_hash))}"
   end
 
   def create_commit([
@@ -27,5 +29,11 @@ defmodule Commands.CommitTree do
         message
       ]) do
     IO.puts("without parent")
+  end
+
+  defp extract_content_of_tree_file(tree_hash) do
+    <<dir::binary-size(2), file_hash::binary>> = tree_hash
+    {:ok, compressed_tree_content} = File.read(".git/objects/#{dir}/#{file_hash}")
+    decompressed = :zlib.uncompress(compressed_tree_content)
   end
 end
