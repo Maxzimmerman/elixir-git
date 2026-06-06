@@ -5,7 +5,8 @@ defmodule CLI do
     "hash-object" => Commands.HashObject,
     "ls-tree" => Commands.LsTree,
     "write-tree" => Commands.WriteTree,
-    "commit-tree" => Commands.CommitTree
+    "commit-tree" => Commands.CommitTree,
+    "clone" => Commands.Clone
   }
 
   defp command(name) do
