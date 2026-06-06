@@ -14,10 +14,6 @@ defmodule Commands.CommitTree do
         "-m",
         message
       ]) do
-    IO.puts("wiht parent")
-    IO.puts(tree_hash)
-    IO.puts(parent_tree_hash)
-    IO.puts(message)
     {:ok, parent_hash_hexa} = Base.decode16(parent_tree_hash, case: :mixed)
 
     header = "commit #{byte_size(extract_content_of_tree_file(tree_hash))}\n"
@@ -29,9 +25,7 @@ defmodule Commands.CommitTree do
     commit_str = header <> parent <> author <> committer <> empty_line <> message
     compressed_commit = :zlib.compress(commit_str)
     sha = :crypto.hash(:sha, commit_str) |> Base.encode16(case: :lower)
-    IO.inspect(commit_str)
-    IO.inspect(compressed_commit)
-    IO.inspect(sha)
+    IO.write(sha)
   end
 
   def create_commit([
