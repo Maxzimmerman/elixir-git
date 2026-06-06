@@ -15,7 +15,7 @@ defmodule Commands.CommitTree do
       ]) do
     {:ok, parent_hash_hexa} = Base.decode16(parent_tree_hash, case: :mixed)
 
-    header = "commit #{byte_size(extract_content_of_tree_file(tree_hash))}\n"
+    header = "commit #{byte_size(extract_content_of_tree_file(tree_hash))}\ntree #{tree_hash}"
     parent = "parent #{parent_hash_hexa}\n"
     author = "Max Benner <test@test.com> 1234567890 +0000\n"
     committer = "Max Benner <test@test.com> 1234567890 +0000\n"
