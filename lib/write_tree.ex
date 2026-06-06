@@ -38,6 +38,21 @@ defmodule Commands.WriteTree do
       Git.create_tree_with_file()
     end)
 
+    entry_bytes =
+      entries
+      |> Enum.map(fn {mode, name, hex_sha} ->
+        nil
+
+        # build "<mode> <name>\0<20_raw_bytes>"
+      end)
+      |> IO.iodata_to_binary()
+
+    header = "tree <byte_size of entry_bytes>\0"
+    store = header <> entry_bytes
+    sha = :crypto.hash(:sha, store) |> Base.encode16(case: :lower)
+
+    # write store (compressed) to .git/objects/<2>/<38>
+    # return sh
     IO.inspect(entries, limit: :infinity)
   end
 
