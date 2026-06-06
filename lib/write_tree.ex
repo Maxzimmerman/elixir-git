@@ -17,7 +17,7 @@ defmodule Commands.WriteTree do
     #   graph = build_graph(["."], %{})
     #   IO.inspect(graph)
     #   dfs(graph, ".")
-    write_tree(".")
+    write_tree(".") |> IO.puts()
   end
 
   def write_tree(dir) do
