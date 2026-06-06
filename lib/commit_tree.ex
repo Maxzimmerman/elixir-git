@@ -22,7 +22,7 @@ defmodule Commands.CommitTree do
     store = tree <> parent <> author <> committer <> empty_line <> message
     header = "commit #{byte_size(store)}\0"
 
-    commit = store <> header
+    commit = header <> store
     sha = :crypto.hash(:sha, commit)
 
     <<dir::binary-size(2), rest::binary>> = sha
