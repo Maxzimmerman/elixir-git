@@ -13,9 +13,7 @@ defmodule Commands.CommitTree do
         "-m",
         message
       ]) do
-    {:ok, parent_hash_hexa} = Base.decode16(parent_tree_hash, case: :mixed)
-
-    parent = "parent #{parent_hash_hexa}\n"
+    parent = "parent #{parent_tree_hash}\n"
     author = "Max Benner <test@test.com> 1234567890 +0000\n"
     committer = "Max Benner <test@test.com> 1234567890 +0000\n"
     empty_line = "\n"
