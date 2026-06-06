@@ -43,7 +43,7 @@ defmodule Commands.WriteTree do
       end)
       |> IO.iodata_to_binary()
 
-    header = "tree <byte_size of entry_bytes>\0"
+    header = "tree #{byte_size(entry_bytes)}\0"
     store = header <> entry_bytes
     sha = :crypto.hash(:sha, store) |> Base.encode16(case: :lower)
 
