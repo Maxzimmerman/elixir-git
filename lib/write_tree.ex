@@ -47,9 +47,11 @@ defmodule Commands.WriteTree do
     store = header <> entry_bytes
     sha = :crypto.hash(:sha, store) |> Base.encode16(case: :lower)
 
-    # write store (compressed) to .git/objects/<2>/<38>
-    # return sh
-    IO.inspect(entries, limit: :infinity)
+    compressed = :zlib.compress(store)
+    <<dir2::binary-size(2), rest38::binary>> = sha
+    File.mkdir_p!(".git/objects/#{dir2}")
+    File.write!(".git/objects/#{dir2}/#{rest38}", compressed)
+    sha
   end
 
   def build_trees([dir | rest], hashes) do
