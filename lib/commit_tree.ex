@@ -21,7 +21,7 @@ defmodule Commands.CommitTree do
     empty_line = "\n"
 
     store = parent <> author <> committer <> empty_line <> message
-    header = "commit #{byte_size(extract_content_of_tree_file(store))}\ntree #{tree_hash}"
+    header = "commit #{byte_size(store)}\ntree #{tree_hash}"
     commit = store <> header
     compressed_commit = :zlib.compress(commit)
     sha = :crypto.hash(:sha, commit) |> Base.encode16(case: :lower)
