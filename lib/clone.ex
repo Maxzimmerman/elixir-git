@@ -254,10 +254,9 @@ defmodule Commands.Clone do
   defp inflate_one(data) do
     z = :zlib.open()
     :zlib.inflateInit(z)
-    {output, rest} = inflate_loop(z, data, [])
-    :zlib.inflateEnd(z)
+    result = inflate_loop(z, data, [])
     :zlib.close(z)
-    {output, rest}
+    result
   end
 
   defp inflate_loop(z, <<byte, rest::binary>>, acc) do
