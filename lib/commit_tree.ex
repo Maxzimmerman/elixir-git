@@ -27,7 +27,11 @@ defmodule Commands.CommitTree do
     empty_line = "\n"
 
     commit_str = header <> parent <> author <> committer <> empty_line <> message
+    compressed_commit = :zlib.compress(commit_str)
+    sha = :crypto.hash(:sha, commit_str) |> Base.encode16(case: :lower)
     IO.inspect(commit_str)
+    IO.inspect(compressed_commit)
+    IO.inspect(sha)
   end
 
   def create_commit([
