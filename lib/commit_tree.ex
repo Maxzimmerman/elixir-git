@@ -2,12 +2,24 @@ defmodule Commands.CommitTree do
   @behaviour Command
 
   def execute() do
-    IO.inspect(System.argv())
+    create_commit(System.argv())
   end
 
-  def with_parent do
+  def create_commit([
+        "commit-tree",
+        tree_hash,
+        "-p",
+        parent_tree_hash,
+        "-m",
+        message
+      ]) do
   end
 
-  def without_parent do
+  def create_commit([
+        "commit-tree",
+        tree_hash,
+        "-m",
+        message
+      ]) do
   end
 end
