@@ -7,7 +7,7 @@ defmodule Git do
 
     <<dir::binary-size(2), rest::binary>> = sha
 
-    File.mkdir!(".git/objects/#{dir}")
+    File.mkdir_p(".git/objects/#{dir}")
     File.write(".git/objects/#{dir}/#{rest}", compressed)
 
     sha
