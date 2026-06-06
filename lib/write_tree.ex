@@ -23,11 +23,11 @@ defmodule Commands.WriteTree do
       |> Enum.reject(&(&1 == ".git"))
       |> Enum.map(fn name ->
         path = Path.join(dir, name)
-        {:ok, mode} = File.stat(dir)
+        {:ok, stat} = File.stat(dir)
 
         cond do
-          File.dir?(path) -> {mode, name, write_tree(path)}
-          true -> {mode, name, Git.create_blob_with_file(path)}
+          File.dir?(path) -> {stat.mode, name, write_tree(path)}
+          true -> {stat.mode, name, Git.create_blob_with_file(path)}
         end
       end)
       |> Enum.sort_by(fn {_, name, _} -> name end)
