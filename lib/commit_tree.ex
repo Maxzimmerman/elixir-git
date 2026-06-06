@@ -13,6 +13,7 @@ defmodule Commands.CommitTree do
         "-m",
         message
       ]) do
+    IO.puts("wiht parent")
   end
 
   def create_commit([
@@ -21,5 +22,6 @@ defmodule Commands.CommitTree do
         "-m",
         message
       ]) do
+    IO.puts("without parent")
   end
 end
