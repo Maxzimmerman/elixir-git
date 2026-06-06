@@ -251,22 +251,37 @@ defmodule Commands.Clone do
   defp type_atom(4), do: :tag
 
   # ---------- inflation ----------
-  # Byte-by-byte: slow but precise about where the deflate stream ends.
+  # safeInflate's :finished status is unreliable for stream-end detection.
+  # zlib.uncompress/1 errors on truncated input but tolerates trailing bytes,
+  # so we binary-search for the smallest prefix that decompresses cleanly.
 
   defp inflate_one(data) do
-    z = :zlib.open()
-    :zlib.inflateInit(z)
-    result = inflate_loop(z, data, [])
-    :zlib.close(z)
-    result
+    size = byte_size(data)
+    consumed = find_min_compressed(data, 1, size, size)
+    decompressed = :zlib.uncompress(binary_part(data, 0, consumed))
+    rest = binary_part(data, consumed, size - consumed)
+    {decompressed, rest}
   end
 
-  defp inflate_loop(z, <<byte, rest::binary>>, acc) do
-    result = :zlib.safeInflate(z, <<byte>>)
-    IO.puts(:stderr, "  safeInflate(byte=#{Integer.to_string(byte, 16)}) -> #{inspect(elem(result, 0))} out_size=#{IO.iodata_length(elem(result, 1))}")
-    case result do
-      {:continue, out} -> inflate_loop(z, rest, [acc | out])
-      {:finished, out} -> {IO.iodata_to_binary([acc | out]), rest}
+  defp find_min_compressed(_data, lo, hi, best) when lo > hi, do: best
+
+  defp find_min_compressed(data, lo, hi, best) do
+    mid = div(lo + hi, 2)
+    if can_uncompress?(binary_part(data, 0, mid)) do
+      find_min_compressed(data, lo, mid - 1, mid)
+    else
+      find_min_compressed(data, mid + 1, hi, best)
+    end
+  end
+
+  defp can_uncompress?(data) do
+    try do
+      :zlib.uncompress(data)
+      true
+    rescue
+      _ -> false
+    catch
+      _, _ -> false
     end
   end
 
