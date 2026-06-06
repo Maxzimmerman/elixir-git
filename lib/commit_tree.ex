@@ -14,6 +14,9 @@ defmodule Commands.CommitTree do
         message
       ]) do
     IO.puts("wiht parent")
+    IO.puts(tree_hash)
+    IO.puts(parent_tree_hash)
+    IO.puts(message)
   end
 
   def create_commit([
