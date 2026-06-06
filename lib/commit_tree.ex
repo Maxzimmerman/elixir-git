@@ -15,15 +15,16 @@ defmodule Commands.CommitTree do
       ]) do
     {:ok, parent_hash_hexa} = Base.decode16(parent_tree_hash, case: :mixed)
 
-    header = "commit #{byte_size(extract_content_of_tree_file(tree_hash))}\ntree #{tree_hash}"
     parent = "parent #{parent_hash_hexa}\n"
     author = "Max Benner <test@test.com> 1234567890 +0000\n"
     committer = "Max Benner <test@test.com> 1234567890 +0000\n"
     empty_line = "\n"
 
-    commit_str = header <> parent <> author <> committer <> empty_line <> message
-    compressed_commit = :zlib.compress(commit_str)
-    sha = :crypto.hash(:sha, commit_str) |> Base.encode16(case: :lower)
+    store = parent <> author <> committer <> empty_line <> message
+    header = "commit #{byte_size(extract_content_of_tree_file(store))}\ntree #{tree_hash}"
+    commit = store <> header
+    compressed_commit = :zlib.compress(commit)
+    sha = :crypto.hash(:sha, commit) |> Base.encode16(case: :lower)
 
     <<dir::binary-size(2), rest::binary>> = sha
     File.mkdir_p(".git/objects/#{dir}")
