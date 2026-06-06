@@ -262,7 +262,9 @@ defmodule Commands.Clone do
   end
 
   defp inflate_loop(z, <<byte, rest::binary>>, acc) do
-    case :zlib.safeInflate(z, <<byte>>) do
+    result = :zlib.safeInflate(z, <<byte>>)
+    IO.puts(:stderr, "  safeInflate(byte=#{Integer.to_string(byte, 16)}) -> #{inspect(elem(result, 0))} out_size=#{IO.iodata_length(elem(result, 1))}")
+    case result do
       {:continue, out} -> inflate_loop(z, rest, [acc | out])
       {:finished, out} -> {IO.iodata_to_binary([acc | out]), rest}
     end
