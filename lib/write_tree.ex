@@ -32,7 +32,7 @@ defmodule Commands.WriteTree do
       end)
       |> Enum.sort_by(fn {_, name, _} -> name end)
 
-    IO.inspect(entries)
+    IO.inspect(entries, limit: :infinity)
   end
 
   def build_trees([dir | rest], hashes) do
