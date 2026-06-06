@@ -34,10 +34,6 @@ defmodule Commands.WriteTree do
       end)
       |> Enum.sort_by(fn {_, name, _} -> name end)
 
-    Enum.each(entries, fn {mode, name, sha} ->
-      Git.create_tree_with_file()
-    end)
-
     entry_bytes =
       entries
       |> Enum.map(fn {mode, name, hex_sha} ->
