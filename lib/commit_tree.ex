@@ -20,7 +20,9 @@ defmodule Commands.CommitTree do
     IO.puts(message)
 
     header = "commit #{byte_size(extract_content_of_tree_file(tree_hash))}\n"
+    parent = "parent #{Base.decode16(parent_tree_hash)}"
     IO.inspect(header)
+    IO.inspect(parent)
   end
 
   def create_commit([
