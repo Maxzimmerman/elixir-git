@@ -4,7 +4,8 @@ defmodule CLI do
     "cat-file" => Commands.CatFile,
     "hash-object" => Commands.HashObject,
     "ls-tree" => Commands.LsTree,
-    "write-tree" => Commands.WriteTree
+    "write-tree" => Commands.WriteTree,
+    "commit-tree" => Commands.CommitTree
   }
 
   defp command(name) do
